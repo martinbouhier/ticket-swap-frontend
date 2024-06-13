@@ -14,13 +14,13 @@ const tickets = [
   },
   {
     id: 1,
-    title: "PAMPAS – SÚPER RUGBY AMÉRICAS",
+    title: "SERVIAN",
     description:
-      "Lo que nació como la Superliga Americana de Rugby (SLAR), en 2023 ha sido rebautizada como Súper Rugby Américas y aunque sufrió modificaciones en su estructura, la esencia de este gran torneo de América no se altera: es la competencia por excelencia, que sostiene y promueve el desarrollo de jugadores de la región. El Súper Rugby Américas (SRA), es el campeonato que reúne a los mejores combinados profesionales del continente y, por segundo año consecutivo, nuestro país estará representado por dos franquicias: Pampas y Dogos XV (la Unión Cordobesa de Rugby tiene a su cargo el control de este equipo). Para este nuevo campeonato, Pampas (la franquicia nacional que reemplazó a Jaguares XV) tendrá como head coach a Juan Manuel Leguizamón, y como asistentes estarán Nicolás Vergallo y Rodrigo Martínez. Los equipos restantes que participarán del certamen continental son: Selknam Rugby (Chile), Yacare XV (Paraguay), Peñarol (Uruguay), Cobras Brasil (Brasil) y American Raptors (Estados Unidos). El torneo tendrá una etapa regular de 14 jornadas, de las cuales cada equipo disputará seis partidos como local y seis de visitante; las semifinales se jugarán el 7 y 8 de junio, mientras que la gran final será el 14 de junio.",
+      "Servian el Circo presenta en ROSARIO “El Gran Sueño” un show a puro dinamismo que busca concientizar sobre el cuidado del medio ambiente, presentando artistas nacionales e internacionales fusionados con elementos teatrales, coreográficos y tecnología lumínica/auditiva de última generación, vestuarios inspirados en la época post-apocalíptica, música original y aparatos circenses diseñados por la compañía, este espectáculo se podrá disfrutar en una carpa fabricada con lona de última generación, al igual que sus butacas de origen Francés y un sector VIP creado para vivir la #ExperienciaServian en primera persona.",
     price: 2400,
     phone: "+5491173608095",
     image_url:
-      "https://prod-cms-static.ticketek.com.ar/sites/default/files/styles/artist/public/images/artist/pampas_a_2.png",
+      "https://prod-cms-static.ticketek.com.ar/sites/default/files/styles/artist/public/images/artist/ticketek_2_.jpg",
   },
   {
     id: 1,
@@ -94,14 +94,6 @@ export default function TicketList() {
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="sr-only">tickets</h2>
-        <div className="flex justify-center mb-8">
-          <button
-            type="button"
-            className="ml-2 px-4 py-2 bg-blue-600 text-white font-bold py-4 px-8 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform hover:scale-125"
-          >
-            Publicar un Ticket
-          </button>
-        </div>
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {tickets.map((ticket) => (
             <button key={ticket.id} onClick={() => handleTicketClick(ticket)}>
