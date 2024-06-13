@@ -3,6 +3,7 @@ import SearchBar from "./searchbar/page";
 import Team from "./team/page";
 import TicketList from "./ticketList/page";
 import Navbar from "./navbar/page";
+import UploadTicket from "./UploadTicket/page";
 
 export default function Home() {
   return (
@@ -35,6 +36,7 @@ export default function Home() {
           <div className="mt-12">
             <SearchBar />
           </div>
+          <UploadTicket />
         </div>
       </div>
       <TicketList />
