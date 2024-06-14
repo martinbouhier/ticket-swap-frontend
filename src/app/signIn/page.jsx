@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import SignUp from '../signup/page';
+import Alert from '../alerts/page';
+import Cookies from 'js-cookie';
 
 export default function SignIn() {
   const [showSignUp, setShowSignUp] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [response, setResponse] = useState(null); // Add state for the response
 
   const handleSignUpClick = (e) => {
     e.preventDefault();
@@ -16,9 +19,13 @@ export default function SignIn() {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_TICKET_SWAP_API_URL}/users/login`, { username, password });
-      console.log(response.data);
+      setResponse(response);
+      const token = response.data.token;
+      Cookies.set('token', token, { expires: 45 });
+
     } catch (error) {
       console.error(error);
+      setResponse(error.response);
     }
   };
 
@@ -40,38 +47,46 @@ export default function SignIn() {
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST">
-        <div>
-        <label htmlFor="username" className="block text-sm font-medium leading-5 text-gray-700">
-          Username
-        </label>
-        <div className="mt-1 rounded-md shadow-sm">
-          <input id="username" type="username" required className="text-black appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" 
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div>
-        <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-700">
-          Password
-        </label>
-        <div className="mt-1 rounded-md shadow-sm">
-          <input id="password" type="password" required className="text-black appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5" 
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
-        </div>
-      </div>
+          <div>
+            <label htmlFor="username" className="block text-sm font-medium leading-5 text-gray-700">
+              Username
+            </label>
+            <div className="mt-1 rounded-md shadow-sm">
+              <input
+                id="username"
+                type="username"
+                required
+                className="text-black appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+            </div>
+          </div>
 
           <div>
-          <button
-          onClick={handleSignInClick}
-          type="submit"
-          className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-        >
-          Sign in
-        </button>
+            <label htmlFor="password" className="block text-sm font-medium leading-5 text-gray-700">
+              Password
+            </label>
+            <div className="mt-1 rounded-md shadow-sm">
+              <input
+                id="password"
+                type="password"
+                required
+                className="text-black appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <button
+              onClick={handleSignInClick}
+              type="submit"
+              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Sign in
+            </button>
           </div>
         </form>
 
@@ -86,6 +101,7 @@ export default function SignIn() {
           </button>
         </p>
       </div>
+      {response && <Alert response={response} />} {/* Render the Alert component if response is not null */}
     </div>
   );
 }
