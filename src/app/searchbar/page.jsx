@@ -11,6 +11,10 @@ export default function SearchBar() {
 
     const handleButtonClick = async () => {
         const response = await fetch(`${process.env.NEXT_PUBLIC_TICKET_SWAP_API_URL}/tickets/search/${inputValue}`);
+        if (!response.ok) {
+            console.error('Failed to fetch tickets');
+            return;
+        }
         const fetchedTickets = await response.json();
         setTickets(fetchedTickets);
     };
