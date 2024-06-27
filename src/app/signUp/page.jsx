@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Alert from '../alerts/page';
 
 export default function SignUp() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [response, setResponse] = useState(null); // Add state for the response
 
   const handleSignUpClick = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_TICKET_SWAP_API_URL}/users/register`, { username, password });
-      console.log(response.data);
+      setResponse(response);
     } catch (error) {
-      console.error(error);
+      setResponse(error.response);
     }
   };
 
@@ -78,6 +80,7 @@ export default function SignUp() {
           </div>
         </form>
       </div>
+      {response && <Alert response={response} />} {/* Render the Alert component if response is not null */}
     </div>
   );
 }
